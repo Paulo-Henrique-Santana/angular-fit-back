@@ -14,11 +14,11 @@ export const cadastro = async (req: Request, res: Response) => {
     if (emailAlredyRegistered) {
       res
         .status(409)
-        .send({ message: "Email já cadastrado!", type: "warning" });
+        .send({ mensagem: "Email já cadastrado!"});
     }
 
     const encryptedPassword = bcrypt.hashSync(
-      Buffer.from(senha).toString("base64"),
+      senha,
       salt
     );
 
@@ -28,7 +28,7 @@ export const cadastro = async (req: Request, res: Response) => {
     });
 
     return res.json(prestador);
-  } catch (err: any) {
-    res.status(500).send(err.toString());
+  } catch (err) {
+    res.status(500).send(err);
   }
 };
